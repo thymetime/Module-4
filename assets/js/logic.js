@@ -19,7 +19,7 @@ function readLocalStorage() {
     return []
   }
 
-  return blogs_obj;
+  return blogs_obj || [];
 
 }
 

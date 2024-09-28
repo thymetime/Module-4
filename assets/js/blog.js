@@ -25,17 +25,19 @@ function createBlogPost(post) {
 
 // TODO: Create a function that handles the case where there are no blog posts to display
 
-function checkBlogPost(blogID) {
-    try {
-        localStorage.getItem(blogs);
-    } catch {
+function checkBlogPost() {
+    const message = document.createElement('h2');
+    message.innerHTML = "There are no blog posts"
 
+    if (!localStorage.getItem('blogs') || localStorage.getItem('blogs').length == 0) {
+        blog_main.append(message)
     }
 }
 
 // TODO: Create a function called `renderBlogList` that renders the list of blog posts if they exist. If not, call the no posts function.
 
 function renderBlogList() {
+    checkBlogPost();
 
     const blogs = readLocalStorage();
     console.log("Render Blog list: " + blogs)

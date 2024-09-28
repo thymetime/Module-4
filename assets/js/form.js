@@ -8,13 +8,20 @@ console.log(formSubmission);
 function formSubmit() { 
 
     // create object that stores form data with an id
-    if (!localStorage.getItem('blogs')) {
-        localStorage.setItem('logs', 'blogs array created')
-        localStorage.setItem('blogs', []) 
-    }
-    const formData = new FormData(formSubmission, submitButton);
 
+
+
+    let formData = new FormData(formSubmission, submitButton);
     let blog = Object.fromEntries(formData);
+    
+    if (!blog.username || !blog.title || !blog.content) {
+        alert("Please fill out all form fields before submitting.")
+        return false;
+    } else {
+        localStorage.setItem('logs', 'THIS IS A BLOG: ' + JSON.stringify(blog));
+        storeLocalStorage(blog)
+        return true;
+    }
 
     // let blog = {};
     // for (const [key, value] of formData) {
@@ -22,8 +29,7 @@ function formSubmit() {
     // }
     // let blogTitle = blog.title;
 
-    localStorage.setItem('logs', 'THIS IS A BLOG: ' + JSON.stringify(blog));
-    storeLocalStorage(blog)
+
 
 }
 
@@ -33,7 +39,9 @@ function formSubmit() {
 
 formSubmission.addEventListener('submit', (event) => {
     event.preventDefault();
-    formSubmit();
-    redirectPage('./blog.html');
+    if (formSubmit()) {
+        console.log('hey')
+        redirectPage('./blog.html')
+    }
     console.log('switched to blog')
 });
